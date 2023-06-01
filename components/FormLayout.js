@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { FormGroup, Label, Row, Col, Form, Input, Button } from "reactstrap";
 
 const FormLayout = () => {
+  const [formData, setFormData] = useState({
+    subject: "",
+    recepient: "",
+    date: "",
+    time: "",
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault;
+    console.log(formData);
+  };
+
+  const subjectChangeHandler = (e) =>
+    setFormData({ ...formData, subject: e.target.value });
+
   return (
     <section>
       <Form className="mt-4">
@@ -10,6 +25,7 @@ const FormLayout = () => {
             <FormGroup>
               <Label for="subject">Subject</Label>
               <Input
+                onChange={subjectChangeHandler}
                 id="subject"
                 name="subject"
                 placeholder="Subject of Memo"
@@ -52,7 +68,9 @@ const FormLayout = () => {
           </Col>
         </Row>
       </Form>
-      <Button color="secondary">Submit</Button>
+      <Button color="secondary" onClick={handleSubmit}>
+        Submit
+      </Button>
     </section>
   );
 };
