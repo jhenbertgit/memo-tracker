@@ -2,20 +2,26 @@ import React, { useState } from "react";
 import { FormGroup, Label, Row, Col, Form, Input, Button } from "reactstrap";
 
 const FormLayout = () => {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     subject: "",
-    recepient: "",
+    recipient: "",
     date: "",
     time: "",
-  });
-
-  const handleSubmit = (e) => {
-    e.preventDefault;
-    console.log(formData);
   };
 
-  const subjectChangeHandler = (e) =>
-    setFormData({ ...formData, subject: e.target.value });
+  const [formData, setFormData] = useState(initialFormData);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    setFormData(initialFormData);
+  };
+
+  const handleChange = (e) =>
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
 
   return (
     <section>
@@ -25,7 +31,8 @@ const FormLayout = () => {
             <FormGroup>
               <Label for="subject">Subject</Label>
               <Input
-                onChange={subjectChangeHandler}
+                onChange={handleChange}
+                value={formData.subject}
                 id="subject"
                 name="subject"
                 placeholder="Subject of Memo"
@@ -35,11 +42,13 @@ const FormLayout = () => {
           </Col>
           <Col md={4}>
             <FormGroup>
-              <Label for="recepient">Recepient</Label>
+              <Label for="recipient">Recipient</Label>
               <Input
-                id="recepient"
-                name="recepient"
-                placeholder="Recepient of the Memo"
+                onChange={handleChange}
+                value={formData.recipient}
+                id="recipient"
+                name="recipient"
+                placeholder="Recipient of the Memo"
                 type="text"
               ></Input>
             </FormGroup>
@@ -48,8 +57,10 @@ const FormLayout = () => {
             <FormGroup>
               <Label for="date">Date Sent</Label>
               <Input
+                onChange={handleChange}
+                value={formData.date}
                 id="date"
-                name="recepient"
+                name="date"
                 placeholder="When the memo was sent"
                 type="date"
               ></Input>
@@ -59,8 +70,10 @@ const FormLayout = () => {
             <FormGroup>
               <Label for="time">Time Sent</Label>
               <Input
+                onChange={handleChange}
+                value={formData.time}
                 id="time"
-                name="recepient"
+                name="time"
                 placeholder="Time of memo sent"
                 type="time"
               ></Input>
