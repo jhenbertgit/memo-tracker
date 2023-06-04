@@ -1,38 +1,52 @@
 import React, { useState } from "react";
 import { FormGroup, Label, Row, Col, Form, Input, Button } from "reactstrap";
 
-const FormLayout = () => {
-  const initialFormData = {
+const AddMemo = ({ addMemo }) => {
+  const initialMemo = {
     subject: "",
     recipient: "",
     date: "",
     time: "",
   };
 
-  const [formData, setFormData] = useState(initialFormData);
+  const [memo, setMemo] = useState(initialMemo);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setMemo((prevMemo) => {
+      return {
+        ...prevMemo,
+        [name]: value,
+      };
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    setFormData(initialFormData);
-  };
-
-  const handleChange = (e) =>
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
+    //form validation
+    if (!memo.subject) {
+      alert("Please add Memo");
+      return;
+    }
+    addMemo({
+      subject: memo.subject,
+      recipient: memo.recipient,
+      date: memo.date,
+      time: memo.time,
     });
 
+    setMemo(initialMemo);
+  };
   return (
-    <section>
-      <Form className="mt-4">
+    <section className="my-4">
+      <Form>
         <Row>
           <Col md={4}>
             <FormGroup>
               <Label for="subject">Subject</Label>
               <Input
                 onChange={handleChange}
-                value={formData.subject}
+                value={memo.subject}
                 id="subject"
                 name="subject"
                 placeholder="Subject of Memo"
@@ -45,7 +59,7 @@ const FormLayout = () => {
               <Label for="recipient">Recipient</Label>
               <Input
                 onChange={handleChange}
-                value={formData.recipient}
+                value={memo.recipient}
                 id="recipient"
                 name="recipient"
                 placeholder="Recipient of the Memo"
@@ -58,7 +72,7 @@ const FormLayout = () => {
               <Label for="date">Date Sent</Label>
               <Input
                 onChange={handleChange}
-                value={formData.date}
+                value={memo.date}
                 id="date"
                 name="date"
                 placeholder="When the memo was sent"
@@ -71,7 +85,7 @@ const FormLayout = () => {
               <Label for="time">Time Sent</Label>
               <Input
                 onChange={handleChange}
-                value={formData.time}
+                value={memo.time}
                 id="time"
                 name="time"
                 placeholder="Time of memo sent"
@@ -88,4 +102,4 @@ const FormLayout = () => {
   );
 };
 
-export default FormLayout;
+export default AddMemo;
