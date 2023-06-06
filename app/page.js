@@ -20,11 +20,17 @@ export default function Home() {
   const [memos, setMemos] = useState(getLocalStorage);
 
   const addMemo = (memo) => {
+    const id = Math.floor(Math.random() * 10000 + 1);
     const newMemo = {
+      id: id,
       ...memo,
     };
 
     setMemos([...memos, newMemo]);
+  };
+
+  const deleteMemo = (id) => {
+    setMemos(memos.filter((memo) => memo.id !== id));
   };
 
   useEffect(() => {
@@ -36,7 +42,11 @@ export default function Home() {
       <Header />
       <Container>
         <AddMemo addMemo={addMemo} />
-        {memos.length > 0 ? <TableLayout memos={memos} /> : <p>no memoranda</p>}
+        {memos.length > 0 ? (
+          <TableLayout memos={memos} onDelete={deleteMemo} />
+        ) : (
+          <p>no memoranda</p>
+        )}
       </Container>
     </>
   );

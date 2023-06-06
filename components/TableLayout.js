@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table } from "reactstrap";
 import TableRow from "./TableRow";
 
-const TableLayout = ({ memos }) => {
+const TableLayout = ({ memos, onDelete }) => {
   return (
     <Table hover>
       <thead>
@@ -12,10 +12,13 @@ const TableLayout = ({ memos }) => {
           <th>Date Sent</th>
           <th>Time Sent</th>
           <th>Status</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <TableRow memos={memos} />
+        {memos.map((memo) => {
+          return <TableRow key={memo.id} memo={memo} handleDelete={onDelete} />;
+        })}
       </tbody>
     </Table>
   );

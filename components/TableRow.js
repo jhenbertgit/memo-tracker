@@ -1,19 +1,31 @@
 import React from "react";
+import StatusBadge from "./StatusBadge";
+import { Button } from "reactstrap";
 
-const TableRow = ({ memos }) => {
+const TableRow = ({ memo, handleDelete }) => {
+  let dte = new Intl.DateTimeFormat("en-US", {
+    dateStyle: "full",
+  }).format(new Date(memo.date));
   return (
     <>
-      {memos.map((memo) => {
-        return (
-          <tr>
-            <td>{memo.subject}</td>
-            <td>{memo.recipient}</td>
-            <td>{memo.date}</td>
-            <td>{memo.time}</td>
-            <td>Send</td>
-          </tr>
-        );
-      })}
+      <tr>
+        <td>{memo.subject}</td>
+        <td>{memo.recipient}</td>
+        <td>{dte}</td>
+        <td>{memo.time}</td>
+        <td>
+          <StatusBadge color="success">Sent</StatusBadge>
+        </td>
+        <td>
+          <Button
+            onClick={() => handleDelete(memo.id)}
+            color="danger"
+            size="sm"
+          >
+            delete
+          </Button>
+        </td>
+      </tr>
     </>
   );
 };
