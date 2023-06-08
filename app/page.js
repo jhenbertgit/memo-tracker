@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 
 import AddMemo from "@/components/AddMemo";
@@ -18,7 +17,7 @@ const getLocalStorage = () => {
   }
 };
 
-export default function Home() {
+const Home = () => {
   const [memos, setMemos] = useState(getLocalStorage);
 
   const addMemo = (memo) => {
@@ -54,4 +53,6 @@ export default function Home() {
       </Container>
     </>
   );
-}
+};
+
+export default Home;
