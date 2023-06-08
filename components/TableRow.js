@@ -1,6 +1,8 @@
 import React from "react";
-import StatusBadge from "./StatusBadge";
 import { Button } from "reactstrap";
+import dynamic from "next/dynamic";
+
+const StatusBadge = dynamic(() => import("./StatusBadge"));
 
 const TableRow = ({ memo, handleDelete }) => {
   let dte = new Intl.DateTimeFormat("en-US", {

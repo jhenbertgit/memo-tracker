@@ -1,10 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
-import AddMemo from "@/components/AddMemo";
-import Header from "@/components/Header";
-import TableLayout from "@/components/TableLayout";
 import { Container } from "reactstrap";
+import dynamic from "next/dynamic";
+
+const TableLayout = dynamic(() => import("@/components/TableLayout"));
+const Header = dynamic(() => import("@/components/Header"));
+const AddMemo = dynamic(() => import("@/components/AddMemo"));
 
 const getLocalStorage = () => {
   if (typeof window !== "undefined") {
@@ -18,7 +19,7 @@ const getLocalStorage = () => {
 };
 
 const Home = () => {
-  const [memos, setMemos] = useState(getLocalStorage);
+  const [memos, setMemos] = useState(getLocalStorage());
 
   const addMemo = (memo) => {
     const id = Math.floor(Math.random() * 10000 + 1);
@@ -35,21 +36,21 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.localStorage.setItem("memoData", JSON.stringify(memos));
-    }
+    window.localStorage.setItem("memoData", JSON.stringify(memos));
   }, [memos]);
+
+  let content = <p>no memoranda</p>;
+
+  if (memos.length > 0) {
+    content = <TableLayout memos={memos} onDelete={deleteMemo} />;
+  }
 
   return (
     <>
       <Header />
       <Container>
         <AddMemo addMemo={addMemo} />
-        {memos.length > 0 ? (
-          <TableLayout memos={memos} onDelete={deleteMemo} />
-        ) : (
-          <p>no memoranda</p>
-        )}
+        {content}
       </Container>
     </>
   );

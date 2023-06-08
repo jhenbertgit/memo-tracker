@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "reactstrap";
-import TableRow from "./TableRow";
+import dynamic from "next/dynamic";
+
+const TableRow = dynamic(() => import("./TableRow"));
 
 const TableLayout = ({ memos, onDelete }) => {
   return (

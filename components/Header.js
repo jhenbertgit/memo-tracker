@@ -4,7 +4,9 @@ import { Navbar, NavbarBrand } from "reactstrap";
 const Header = () => {
   return (
     <Navbar color="secondary" dark>
-      <NavbarBrand className="ps-4" href="/">Memo Tracker</NavbarBrand>
+      <NavbarBrand className="ps-4" href="/">
+        Memo Tracker
+      </NavbarBrand>
     </Navbar>
   );
 };
