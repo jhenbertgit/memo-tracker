@@ -8,11 +8,13 @@ import TableLayout from "@/components/TableLayout";
 import { Container } from "reactstrap";
 
 const getLocalStorage = () => {
-  let memos = localStorage.getItem("memoData");
-  if (memos) {
-    return JSON.parse(localStorage.getItem("memoData"));
-  } else {
-    return [];
+  if (typeof window !== "undefined") {
+    let memos = window.localStorage.getItem("memoData");
+    if (memos) {
+      return JSON.parse(window.localStorage.getItem("memoData"));
+    } else {
+      return [];
+    }
   }
 };
 
@@ -34,7 +36,9 @@ export default function Home() {
   };
 
   useEffect(() => {
-    localStorage.setItem("memoData", JSON.stringify(memos));
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("memoData", JSON.stringify(memos));
+    }
   }, [memos]);
 
   return (
