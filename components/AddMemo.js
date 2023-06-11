@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { FormGroup, Label, Row, Col, Form, Input, Button } from "reactstrap";
 

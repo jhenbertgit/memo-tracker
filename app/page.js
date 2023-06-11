@@ -41,7 +41,7 @@ const Home = () => {
 
   let content = <p>no memoranda</p>;
 
-  if (memos.length > 0) {
+  if (memos && memos.length > 0) {
     content = <TableLayout memos={memos} onDelete={deleteMemo} />;
   }
 
